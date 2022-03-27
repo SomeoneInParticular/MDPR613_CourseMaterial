@@ -1,0 +1,161 @@
+01
+Hello, and welcome to Unit 1 in the Crash Course in Python Module. Today, we will go through procedural programming in Python
+
+02
+By the end of this module you will be able to:
+* Create re-usable blocks of code
+* Create code which can change how it runs during runtime
+* Devise code capable of iterating through collections of data
+* Terminate these iterations conditionally, and
+* Create custom collections of data in Python
+All Python code described and used in this slideshow will be provided in a Jupyter Notebook file, which can be run on TALC for you to further experiment with. A (non-runnable) PDF version of said code will also be available for reference
+
+03
+What does it mean to be procedural?
+Procedural processes are those which work through a list of instructions, or procedures, in a specific order.
+Each of these procedures can update the state of the system, allowing for future instructions to react to and revise their procedures in response
+Most programming languages are procedural in some capacity, though exceptions, like Haskell, do exist
+
+04
+Procedural Programming Terminology Part 1
+A statement is an instruction representing an action to be taken by the computer, such as the print statement. They are often used alongside arguments, and statements reference other statements.
+An argument is a value passed to a statement when it is called. For example, with the 'print' statement, the string we ask it to print is its only argument
+A call is a request to run a statement with a set of pre-defined arguments
+
+05
+Procedural Programming Terminology Part 2
+A block is a group of statements that always run together, forming a chain of instructions which itself can be treated as a larger statement. In Python, these are denoted using indentation via tabs or spaces underneath the block defining statement
+The scope is the current level of accessibility that a statement or variable has. Python has two categories of scope
+Elements declared in the global scope can be accessed and modified at any time during the program
+Elements defined locally within a block, however, can only be accessed by other elements within the same block, and are effectively deleted once the block completes its run time
+
+06
+Flow Control
+
+07
+Python Flow Control
+Python flow control allows a program to dynamically change how it functions.
+Python has 3 main forms of flow control:
+Functions, which are named blocks of code which can be re-used as needed.
+Conditionals, which are blocks of code bound to run only under certain conditions
+And loops, which are blocks of code which will cycle repeatedly until some condition is met
+
+08
+Functions
+Functions are defined in Python with the "def" keyword.
+In this example, we are defining a function, named 'test', with two arguments, 'arg1' and 'arg2'. The function simply prints out those two arguments, separated by a dash
+The name a function can be anything which abides by variable naming rules, which is to say that they cannot start with a number, they cannot use special characters, and they cannot override an existing keyword within the Python language
+Functions can have one, many, or no arguments
+Each of these argument's names must also abide by the same variable naming rules described prior
+Finally, code placed within a function must be indented by some whitespace, usually a tab or set of spaces, to be recognized as part of that function
+Any code within within the function can use the values passed in as arguments, treating them as variables that share their name
+
+09
+Declaring and Calling a Function
+The following is a function declaration, which declares the function, named 'double_val', which takes one argument, 'val', and doubles it, reporting the result. Now that the function has been declared, it can be called by its name to run, allowing us to re-use the code within the function alongside different values
+
+10
+Variable Access and Functions
+Variables declared within the global scope can be accessed within a function, but variables declared within a function are locally bound within it, and cannot be accessed outside of it. 
+As we can see, the variable 'foo' is declared outside of the function, and is therefore in the global scope. However, within the function 'bar', we declare a new variable 'bing' which, when we try to access it outside of the function below, with the 'print' statement, it will throw an error instead. However, 'foo', being in the global scope, can be used to form 'bing' in the first place
+
+11
+Returning Data from a Function
+We can return local scope data from a function using the 'return' statement, allowing for data generated within a function to be accessed outside of it. 
+This is shown in the function declaration 'triple_plus_two' below, where we declare a variable within it, called 'result', and return it, making it accessible to the variable 'new_val' outside of it.
+These "returned" values can be immediately passed to another function as well. This is shown below in the function 'minus_3', where we pass of 'triple_plus_two' tpo 'minus_3' immediately, and then capture the result of that in a new variable, 'val'
+
+12
+Conditionals
+Conditionals allow blocks of code to be run conditionally, as specified using either a boolean (true/false) or a statement which returns a boolean. 
+Python has three conditional statements:
+The 'if' statement, which will run code within its block if the statement its bound to is evaluated to be 'true'
+The 'elif' statement, which will do the same as an 'if' statement but only if a prior 'if' or 'elif' statement failed to run
+And finally, the 'else' statement, which will only run if the prior 'if' or 'elif' statement failed to run
+
+13
+An Example Conditional
+Below is a simple "if-elif-else" chain, which will check and report whether two values are greater than, less than, or equal too one another.
+Note that in both cases we aren't actually providing an explicit "true" or "false" value, but rather are having it implicitly calculated by the operator > or <
+
+14
+Nested Conditionals
+Conditionals can be nested within one another to form branching decision structures.
+This is shown below in the function 'evaluate_program_language'. If the value passed is "Python", it will immediately say that it is a good choice. 
+However, if it is "R", it will then go to check if you are a statistician or not, and if you aren't, will report it as bad.
+If you are, however, it will report that it is a reasonable choice, though it is still not as good as Python
+
+15
+Loops
+Loops are simply structures which will repeat a block of code until some condition is met
+Python has two loop structures:
+A 'while' loop simply repeats until an if-like statement fails to be met. This can result in the loop repeating indefinately, however
+A 'for' loop, in contrast, repeats a block of code once for every element within an iterable, which is simply an object which can be iterated through
+
+16
+While Loops
+Like an 'if' statement, while statement require a single statement which evaluates to a boolean value (being 'true' or 'false').
+This condition is evaluated once every loop, before the loops code block is actually run. 
+This does mean that the block of code can also never run, if the condition is false when the 'while' statement is first encountered
+Below is an example of a 'while' loop, which simply prints out all numbers between 0 and 4, by checking whether the number is below 5 when it is about to be printed
+
+17
+For Loops
+For loops use an iterable to determine when to terminate, running their block of code once per iteration.
+The element being used within the iterable for each iteration can be labelled as a variable, being treated like a functions argument. 
+In the example below, we are using the 'range' function, which simply gives an iterable of numbers between 0 and the number specified, to print out the same values that we printed out for the 'while' loop prior
+
+18
+Terminating Loops Prematurely
+Loops can also be terminated explicitly using the 'break' statement.
+In the example below, we are terminating the 'for' loop early when we hit a value that is greater than 1
+Alternatively, a single cycle, rather than the entire loop, can be skipped using the 'continue' statement
+In this second example, we're simply skipping over the iteration where 'i' equals 1
+
+19
+Lists
+Lists are collections of data which can be iterated through in order, and are declared using square brackets '[]'
+Being collections of elements, lists are iterable, and can be used as part of a 'for' loop
+This is shown in the example below, where we have a list, called 'list1', which contains the number '1', the value 'True', the letter 'F', and the words "Hello World!". We then iterate through each in turn using a 'for' loop
+
+20
+Selecting List Elements
+Lists are queried identically to strings.
+This is because strings are actually just collections of characters, similar to how lists are collections of arbitrary data, and thus and both use the same syntax
+As shown in the example below, remember that querying starts at 0, and that the left value is always inclusive and the right value is always exclusive.
+
+21
+Updating Existing Lists
+To add an element to an existing list, we can use the 'append' function of said list.
+This is shown in the example below, where we create a list that has the character 'a' in it, and append a new character, 'b', to it.
+Note that appending a list to another will append the new list itself, not actually the contents of it.
+If you want to extend a list with another's contents, use the extend function instead
+This is demonstrated in the example below, where we have two lists; one that contains the letter 'a' and one which contains the letter 'b'
+If we append the two lists, we get a list which actually contains another list. 
+However, if we use extend instead, we see the two lists become joined
+
+22
+Removing Elements from Lists
+We can delete an element based on its location using the 'pop' function. If we do not pass an index, it will always delete the last element in the list instead.
+The index provided to pop is also 0-indexed, which means '1' is actually the second element in the index, as you can see in the example below
+Alternatively, and element can be removed based on its value using the 'remove' function. This will only delete the first instance of said element, however.
+The example below shows this, where we ask it to remove the element 'B' from the list. However, as there are two instances, it only deletes the first.
+
+23
+Putting it All Together
+
+24
+Lets Test Your Learning
+You have been tasked with another Python program.
+This one should greet the user, 
+ request numbers from the user until the sum of all collected absolute values of those numbers exceed 100, 
+ or user enters the characters 'done'
+and then, using those sets of numbers, report the following for each:
+ The numbers values plus 2
+ and the cummulative product of all numbers up to and including the newest number
+ (said cummulative product should also be initialized with a value of 1 to prevent any issues)
+An incomplete Python script file has been provided with comment hints for each of the provided steps to test your learning with
+A key for this document has also been provided, should you want to check your answer or if you get stumped at any point
+
+25
+Thank You for Watching
