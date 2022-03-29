@@ -1,0 +1,179 @@
+01
+Hello, and welcome to Unit 2 of the Crash Course in Python Module
+Today we will go through data management with numpy and pandas
+
+02
+By the end of this module, you will be able to
+ Run common mathematical operations using Numpy
+ Load spreadsheet data into Python using Panda's DataFrames
+ Summarize the loaded data using Numpy with Pandas
+ Query the data by both its position and labels
+ Add to, delete, re-organize and modify said data
+ and save the now modified data to a file for later use
+All python code described and used in this slideshow will be provided in a Jupyter Notebook file, which you can run on TALC to further experiment with.
+A, non-runnable, PDF version of said code will also be available for reference
+
+03
+Numpy and Pandas
+Numpy is a numerical library for Python, designed to allow for more complex and efficient mathematical analyses on large datasets
+Pandas is another numerical library which build off of Numpy, focusing on large scale data management through data structures known as a "DataFrames"
+Both are currently actively developed and nearly ubiquitous in modern data science applications
+
+04
+Loading external packages
+To load a package, use the 'import' statement followed by the package you wish to load.
+We import both the numpy and pandas package in the example below
+With numpy and pandas in particular, it is common to alias them as 'np' and 'pd' respectively.
+This can be done with the 'as' statement in Python, which follows the original import.
+This is shown below with both Numpy and Pandas
+If only part of a package is needed, the from statement can be used to select that element on its own
+This is shown below with Numpy, where we import the 'floor' package on its own
+
+05 
+Using loaded packages
+Once loaded, the components of the package can be used as though they were functions of that package's name
+In the example below, we import 'numpy' as 'np' and then apply two functions from it; the 'sum' and the 'cumprod' functions
+A full list of all functions numpy can provide is available at the link below
+
+06
+Importing Data with Pandas
+Once Pandas is imported excel spreadsheets can be imported using its 'read_excel' function. This is shown below.
+If the file is in 'csv' (or comma-separated-value) format, 'read_csv' is used instead.
+Importing 'tsv' (tab-separated-value) format is similar, but requires the addition of the 'sep=\t' argument
+The imported data is stored within a 'DataFrame' structure, often shortened to 'df'
+
+07
+Dataframe structure
+DataFrames are analogous to tables in a spreadsheet, but are much more efficient and powerful
+Each DataFrame (shortened to 'df' here, for example) have three primary elements
+The row indices, which label the rows of the table and are accessed with 'df.index'
+The column headers, which label each column in the data, and are accessed with 'df.columns'
+And the data itself, which can be queried using the prior two
+
+08
+Dataframe Querying
+
+09
+Viewing DataFrame Contents
+Like any other object, DataFrames can be viewed (often in a truncated manner), using the 'print' statement
+In the example below, we demonstrate this by loading our demo data, and printing it out to console
+
+10
+Querying DataFrame's by Position (i.e. list-like slicing)
+DataFrame's are queried similiarly to lists, using the 'iloc' statement, taking two numbers indices in 'row, column' form
+Note that queries that result in more than one row or column will produce a new DataFrame
+An example of the many types of queries you can make using this system are shown below,
+ including a single element query,
+ a single row query,
+ and an intersection between multiple rows and columns
+
+11
+Querying DataFrames by Label (or Database-like Querying)
+DataFrames can be queried by their column and row index values, rather than their position, using the 'loc' statement
+The query structure is otherwise the same
+Examples of this are shown below, where we query a single element
+ a single columnd
+ and an intersection or rows and columns using 'loc' rather than 'iloc'
+ 
+12
+Querying DataFramse by Conditions (or also know as 'filtering')
+DataFrames can be filtered conditions similar to an 'if' statement.
+To do so, use a DataFrame alongside the desired condition as the index for the query, without 'loc' or 'iloc' statements
+An example of this is shown below, where we filter data where only the allele of 'b' is shown
+Similar to 'if' statments as well, these can be chained, though be use the '&' symbol rather than the 'and' statement to do so
+
+13
+Summarizing the Entire DataFrame
+All numerical data within a DataFrame can be summarized using the 'describe' function.
+Note that this description is also a DataFrame
+
+14
+Manipulating DataFrame Data
+
+15
+Removing Rows and Columns with the 'drop' Command
+The 'drop' statement requires three arguments to function:
+ The 'axis' argument can be set to 0 if you want to drop rows, or 1 if you want to drop columns
+ The 'labels' argument specifies the rows or columns to drop. This can be a single row or column, or a list of rows and columns. These must be the labels of the rows or columns, not their positional location
+ Finally, the 'inplace' argument. If 'True', the DataFrame will change itself permanently, while if 'False', the DataFrame will just return a copy of itself with the changes specified applied, which you can then save to a variable which is distinct from the original
+
+16
+Here are a few examples of 'drop' in action
+In our first example, we do a drop without 'inplace', using a single column.
+In our second example, we do a drop with 'inplace', alternating the targetted rows and DataFrame generated prior
+
+17
+Inserting New Data
+Like variables, we can assign new data to the DataFrame with the assignment operator, i.e. the equals sign (=). We simply need to specify the context of the insertion, similar to how we would query the DataFrame. 
+This is shown in the example below, where we insert a new column into our previously modified DataFrame (df2).
+Note that the size of the inserted list must be the same as the amount of rows that we have for it to work successfully
+
+18
+Replacing DataFrame Data
+Exiting contents in a DataFrame can be replaced with identical syntax to an insertion. 
+We simply specify the existing elements that should be overriden, rather than where new elements should be inserted.
+This is demonstrated in the example below, where we replace "Ethan" with "Earl", specifying row '8' and the 'Name' column
+
+19
+Changing Row Labels with 'set_index'
+We can request that a DataFrame use an already existing column as its row indices by using the 'set_index' function.
+This requires three arguments to function:
+ The 'keys' argument specifies the new column to set as an index. Note that a list of desired columns can be used to have their combinations treated as the index, though this does complicate later querying
+ The 'drop' argument specifies whether the original column should be deleted in the DataFrame when it becomes the index. This is designated by saying 'drop=True'
+ Finally, the 'inplace' argument specifies whether the original DataFrame should modify itself permanently, or just return a copy of itself with the now changed row indices.
+
+20
+Below are two examples of 'set_index' in action
+In our first example, we set the without 'inplace' or 'drop', and only target a single column; in this case, the 'ID' column
+In our second example, the index is set with both 'inplace' and 'drop' for multiple columns, forming a 'multi-index'. In this case we specify the "Name" and the "Allele" column to be our index, deleting both of them from the DataFrame in the process
+
+21
+Setting Row and Column Indices Directly
+We can also provide a completely new set of indices for the rows and columns in the DataFrame by assigning a list of elements to DataFrame's 'index' and 'columns' parameter, respectively
+This is demonstrated below, where we update the rows labels to represent a study ID by explicitly assigning to the DataFrame's index
+
+22
+Transposing (or 'Flipping') the DataFrame
+Sometimes we need to swap our rows and columns to better organize the data, or to prepare it for some analyses. This is called 'transposing' the DataFrame. 
+One way to do this is to simply request the 'T' parameter of the DataFrame, as shown below.
+Alternatively, if you prefer functions, the DataFrame's 'transpose' function will produce the same result, as shown below.
+
+23
+Naive Function Application
+In most cases, the numpy functions can be applied directly to a DataFrame.
+These functions will be applied first column-by-column, and then row-by-row, with the results retaining their index labels wherever possible.
+In the first example, we use this to take the sum of each column that can be summed iteratively
+In the second example, we instead take the cummulative sum, which is the sum of every single value up to and including the current row
+
+24
+The 'apply' Function
+For functions which require more than one parameter, we can use the 'apply' function. 
+This requires two arguments, plus any arguments we want to pass to the function for each of applications on the DataFrame
+The 'func' argument specifies the function to apply to the DataFrame. The first of this function's arguments that are not specified below will be what recieves the row or column of the DataFrame.
+The 'axis' argument specified whether the function should recieve rows (axis=1) or columns (axis=0). If you only have one row or column, or want it to be applied cell by cell rather than on a whole row or whole column at a time, this argument can be skipped
+Finally, you can specify any arguments that are required for function to run, labelled by their argument name within the original function's declaration.
+
+25
+Below is an example of the 'apply' function in action
+Here we have declared a function, which simply sets any value less than another specified value to 0. 
+We then apply that function to the DataFrame, explicitly setting the other value to 5.
+
+26
+Saving your Data
+We can save the data in a DataFrame to a 'csv' file using the 'to_csv' function, which simply requires a filename with its extension.
+Likewise, the data can be saved to an Excel spreadsheet with the extension 'xlsm' using the 'to_excel' function.
+
+27
+Putting it All Together
+
+28
+Let's test your learning
+You have been tasked again to create a Python program. This one should:
+ Load the data contained within 'iris_data.tsv' into a DataFrame and perform the following analyses on the data, reporting each to the user
+  First, get the mean (or average) petal width for all irises
+  Then, get the standard deviation of petal length for the 'Versicolour' species only
+  And finally, identify which species has the largest observed sepal length in the dataset, without manual inspection being used at all
+An incomplete scipt file has been provided with comment hints for each of the steps above for you to test your learning. A key for this document has also been provided, should you want to check your answers or get stumped at any point
+
+29
+Thank You for Watching
